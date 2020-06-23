@@ -123,5 +123,5 @@ def special_draw(img, box, landmarsk, name, score):
     tf = max(tl - 1, 1)  # font thickness
     t_size = cv2.getTextSize(name, 0, fontScale=tl / 3, thickness=tf)[0]
     c2 = c1[0] + t_size[0], c1[1] - t_size[1] - 3
-    cv2.rectangle(img, c1, c2, color, -1)  # filled
-    cv2.putText(img, name, (c1[0], c1[1] - 2), 0, tl / 3, [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
+    #cv2.rectangle(img, c1, c2, color, -1)  # filled
+    cv2.putText(img, name, (c1[0], c1[1] - 40), 0, tl / 3, [0, 200, 0], thickness=tf, lineType=cv2.LINE_AA)

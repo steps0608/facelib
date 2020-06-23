@@ -1,4 +1,3 @@
-#
 import cv2
 import argparse
 from InsightFace.data.config import get_config
