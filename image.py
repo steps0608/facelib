@@ -21,20 +21,19 @@ if __name__ == '__main__':
     face_rec.threshold = args.threshold
     face_rec.model.eval()
 
-    face_detector = FaceDetector(name='mobilenet', weight_path='Retinaface/weights/mobilenet.pth', device='cuda', face_size=(224, 224))
-    face_detector2 = FaceDetector(name='mobilenet', weight_path='Retinaface/weights/mobilenet.pth', device=conf.device)
-    age_gender_detector = AgeGender(name='full', weight_path='AgeGender/weights/ShufflenetFull.pth', device='cuda')
-    emotion_detector = EmotionDetector(name='densnet121', weight_path='FacialExpression/weights/densnet121.pth', device='cuda')
+    face_detector = FaceDetector(name='mobilenet', weight_path='Retinaface/weights/mobilenet.pth', device=conf.device)
+    age_gender_detector = AgeGender(name='full', weight_path='AgeGender/weights/ShufflenetFull.pth', device=conf.device)
+    emotion_detector = EmotionDetector(name='densnet121', weight_path='FacialExpression/weights/densnet121.pth', device=conf.device)
 
     if args.update:
-        targets, names = update_facebank(conf, face_rec.model, face_detector2, tta=args.tta)
+        targets, names = update_facebank(conf, face_rec.model, face_detector, tta=args.tta)
     else:
         targets, names = load_facebank(conf)
 
 
     frame = cv2.imread('Retinaface/demo_img/multiface.jpg')
+
     faces, boxes, scores, landmarks = face_detector.detect_align(frame)
-    faces, boxes, scores, landmarks = face_detector2.detect_align(frame)
 
     if len(faces.shape) > 1:
         results, score = face_rec.infer(conf, faces, targets, args.tta)
