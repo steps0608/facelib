@@ -7,3 +7,4 @@ Retinaface/weights
 Retinaface/Pytorch_Retinaface/data/FDDB/images
 InsightFace/data/facebank
 InsightFace/data/faces_emore
+AgeGender/data/
