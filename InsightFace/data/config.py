@@ -2,6 +2,7 @@ from easydict import EasyDict as edict
 from pathlib import Path
 import torch
 from torch.nn import CrossEntropyLoss
+from torchvision import transforms as trans
 
 
 def get_config(training=True):
@@ -18,6 +19,10 @@ def get_config(training=True):
     conf.drop_ratio = 0.6
     conf.net_mode = 'ir_se'  # or 'ir'
     conf.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    conf.test_transform = trans.Compose([
+        trans.ToTensor(),
+        trans.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+    ])
     conf.data_mode = 'emore'
     conf.vgg_folder = conf.data_path / 'faces_vgg_112x112'
     conf.ms1m_folder = conf.data_path / 'faces_ms1m_112x112'
@@ -30,6 +35,7 @@ def get_config(training=True):
         conf.save_path = conf.work_path / 'save'
         #  conf.weight_decay = 5e-4
         conf.lr = 1e-3
+        conf.milestones = [12, 15, 18]
         conf.momentum = 0.9
         conf.pin_memory = True
         # conf.num_workers = 4 # when batchsize is 200

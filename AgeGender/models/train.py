@@ -32,7 +32,7 @@ class MultitaskDataset(Dataset):
         return len(self.imgs)
 
     def __getitem__(self, i):
-        return self.tfms(Image.open(self.root + self.imgs[i])), torch.tensor(
+        return self.tfms(Image.open(self.root + str(self.imgs[i]))), torch.tensor(
             [self.genders[i], self.races[i], self.ages[i]]).float()
 
     def __repr__(self):
