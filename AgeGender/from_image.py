@@ -7,7 +7,7 @@ face_detector = FaceDetector(name='mobilenet', weight_path='../Retinaface/weight
 age_gender_detector = AgeGender(name='full', weight_path='./weights/ShufflenetFull.pth', device='cuda')
 
 
-frame = cv2.imread('../Retinaface/demo_img/multiface.jpg')
+frame = cv2.imread('/home/minds/PycharmProjects/FaceRecognizer-motive/OutputF1/763118H01_1_18-TJ-06-036__face1.jpg')
 faces, boxes, scores, landmarks = face_detector.detect_align(frame)
 if len(faces.shape) > 1:
     tic = time()

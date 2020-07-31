@@ -78,6 +78,16 @@ class face_learner:
                 self.optimizer.state_dict(), save_path /
                                              ('optimizer_{}_accuracy:{}_step:{}_{}.pth'.format(get_time(), accuracy,self.step, extra)))
 
+    def load_state(self, conf, fixed_str, from_save_folder=False, model_only=False):
+        if from_save_folder:
+            save_path = conf.save_path
+        else:
+            save_path = conf.model_path
+        self.model.load_state_dict(torch.load(save_path / fixed_str))
+        if not model_only:
+            self.head.load_state_dict(torch.load(save_path / 'head_{}'.format(fixed_str)))
+            self.optimizer.load_state_dict(torch.load(save_path / 'optimizer_{}'.format(fixed_str)))
+
 
     def evaluate(self, conf, carray, issame, nrof_folds=5, tta=False):
         self.model.eval()
